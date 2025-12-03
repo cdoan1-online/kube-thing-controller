@@ -1,0 +1,7 @@
+.git
+.gitignore
+deploy/
+README.md
+CLAUDE.md
+LICENSE
+*.md
