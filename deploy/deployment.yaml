@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thing-controller
+  namespace: thing
+  labels:
+    app: thing-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thing-controller
+  template:
+    metadata:
+      labels:
+        app: thing-controller
+    spec:
+      serviceAccountName: thing-controller
+      containers:
+      - name: controller
+        image: quay.io/cdoan1/thing-controller:latest
+        imagePullPolicy: Always
+        args:
+        - --namespace=thing
+        - --configmap=thing
+        - -v=2
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault

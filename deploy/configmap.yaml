@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thing
+  namespace: thing
+data:
+  example-key: "example-value"
+  config.yaml: |
+    # Sample configuration
+    setting1: value1
+    setting2: value2
